@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Dúvidas do Cindacta I</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Todo o CSS permanece idêntico ao original */
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .manual-links {
+            margin-bottom: 20px;
+        }
+
+        .manual-links h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .manual {
+            margin-bottom: 15px;
+        }
+
+        .download-button {
+            display: inline-block;
+            padding: 8px 15px;
+            font-size: 1em;
+            background-color: #295079;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-right: 20px;
+            margin-bottom: 10px;
+        }
+
+        .download-button:hover {
+            background-color: #0a5fb9;
+            transform: scale(1.05);
+        }
+
+        .chat-container {
+            width: 60%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #003366;
+            padding: 10px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .chat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .chat-name {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: white;
+        }
+
+        .chat-box {
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            border-top: 3px solid #08407b;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .message p {
+            padding: 10px;
+            border-radius: 15px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .message.user p {
+            background-color: #0f3c6d;
+            color: white;
+            margin-left: auto;
+            border-radius: 15px 15px 0 15px;
+        }
+
+        .message.bot p {
+            background-color: #f0f0f0;
+            margin-right: auto;
+            border-radius: 15px 15px 15px 0;
+        }
+
+        .chat-form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .chat-form input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .chat-form button {
+            padding: 10px 15px;
+            background-color: #063e7a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 1em;
+        }
+
+        .chat-form button:hover {
+            background-color: #08305b;
+        }
+
+        .feedback-form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 8px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            margin: 10px auto;
+            font-size: 0.8em;
+        }
+
+        .feedback-title {
+            font-size: 0.9em;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .feedback-group {
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .feedback-group label {
+            font-size: 0.8em;
+            color: #555;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .feedback-group textarea,
+        .feedback-group input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            font-size: 0.8em;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: border 0.3s ease;
+        }
+
+        .feedback-group textarea:focus,
+        .feedback-group input[type="number"]:focus {
+            border-color: #082646;
+            outline: none;
+        }
+
+        .feedback-btn {
+            background-color: #052d58;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.8em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .feedback-btn:hover {
+            background-color: #2461a3;
+        }
+
+        @media (max-width: 600px) {
+            .feedback-form {
+                padding: 5px;
+            }
+
+            .feedback-title {
+                font-size: 0.9em;
+            }
+
+            .feedback-btn {
+                padding: 5px 10px;
+                font-size: 0.8em;
+            }
+        }
+
+        .rating-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .rating-btn {
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .rating-btn:hover {
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+
+        .rating-btn.selected {
+            border: 2px solid black;
+        }
+
+        .submit-btn {
+            margin-top: 20px;
+        }
+
+        .manual-button {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px 5px 5px 0;
+            background-color: #063e7a;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
+            min-width: 150px;
+            max-width: 200px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .manual-button:hover {
+            background-color: #08305b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <img src="public\CintIA.png" alt="CintIA" class="chat-icon">
+            <span class="chat-name">CintIA</span>
+        </div>
+
+        <div id="chat-box" class="chat-box"></div>
+
+        <div id="typing-indicator" class="typing-indicator" style="display: none;">
+            <img src="public\CintIA.png" alt="Bot" class="avatar bot">
+            <span>Cintia está digitando...</span>
+        </div>
+
+        <form id="chat-form" class="chat-form">
+            <input type="text" id="user-input" name="user_input" placeholder="Digite sua mensagem..." autocomplete="off"
+                required>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div class="form-group feedback-group">
+            <form id="feedback-form" class="feedback-form">
+                <h2 class="feedback-title">Nos diga como foi a sua experiência!</h2>
+                <label for="feedback">Avaliação: </label>
+                <div id="rating-buttons" class="rating-buttons">
+                    <button class="rating-btn" data-value="1" style="background-color: #ff4d4d;">Ruim</button>
+                    <button class="rating-btn" data-value="2" style="background-color: #ff9933;">Baixo</button>
+                    <button class="rating-btn" data-value="3" style="background-color: #ffd633;">Média</button>
+                    <button class="rating-btn" data-value="4" style="background-color: #6ce959;">Boa</button>
+                    <button class="rating-btn" data-value="5" style="background-color: #06a41b;">Excelente</button>
+                </div>
+                <div class="form-group feedback-group">
+                    <label for="feedback">Fique à vontade para deixar sua sugestão de melhoria, crítica ou
+                        elogio!</label>
+                    <textarea id="feedback" name="feedback" rows="4"
+                        placeholder="Deixe seu comentário aqui..."></textarea>
+                    <input type="hidden" id="rating" name="rating">
+                </div>
+                <div><button type="submit" class="submit-btn feedback-btn">Enviar Avaliação</button></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const chatBox = document.getElementById('chat-box');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        // Mensagem de boas-vindas
+        window.onload = () => {
+            const welcomeMessage = `
+                <div class="message bot">
+                    <img src="public\CintIA.png" alt="Bot" class="avatar bot-avatar">
+                    <p>Olá! Sou a Cintia, Assistente Virtual do CINDACTA I. <br><br>
+                    Estou aqui para ajudá-lo(a) com dúvidas, manuais e informações relacionadas às atividades do CINDACTA.<br><br>
+                    Caso queira ter acesso aos manuais, digite "manual". Qualquer dúvida sobre os mesmos pode me perguntar!<br><br>
+                    </p>
+                </div>`;
+            const welcomeMessage2 = `
+                <div class="message bot">
+                    <img src="public\CintIA.png" alt="Bot" class="avatar bot-avatar">
+                    <p>Sua dúvida é relacionada a qual assunto?<br><br>
+                    1 - Manuais SPOG<br>
+                    2 - Manuais DA</p>
+                </div>`;
+            chatBox.innerHTML += welcomeMessage + welcomeMessage2;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
+
+        // Função para converter texto com negrito, quebras de linha e links em botões
+        function parseTextToButtons(text) {
+            // Substitui negrito (**texto**) por <strong>texto</strong>
+            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            // Substitui quebras de linha por <br>
+            formattedText = formattedText.replace(/\n/g, '<br>');
+
+            // Converte links [texto](url) em botões
+            const linkRegex = /\[(.*?)\]\((.*?)\)/g;
+            let match;
+            while ((match = linkRegex.exec(text)) !== null) {
+                const linkText = match[1];
+                const linkUrl = match[2];
+                const buttonHtml = `<button class="manual-button" onclick="window.open('${linkUrl}', '_blank')">${linkText}</button>`;
+                formattedText = formattedText.replace(match[0], buttonHtml);
+            }
+
+            return formattedText;
+        }
+
+        // Envio de mensagens
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value;
+
+            // Mensagem do usuário
+            const userMessage = `
+                <div class="message user">
+                    <img src="public\avatar_usuario.png" alt="User" class="avatar user-avatar">
+                    <p>${message}</p>
+                </div>`;
+            chatBox.innerHTML += userMessage;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Indicador de digitação
+            typingIndicator.style.display = 'flex';
+
+            // Requisição ao backend
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message })
+            });
+
+            const data = await response.json();
+
+            // Ocultar indicador de digitação
+            typingIndicator.style.display = 'none';
+
+            // Mensagem do bot com formatação aplicada
+            const botMessage = `
+                <div class="message bot">
+                    <img src="public\CintIA.png" alt="Bot" class="avatar bot-avatar">
+                    <p>${parseTextToButtons(data.response)}</p>
+                </div>`;
+            chatBox.innerHTML += botMessage;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Limpar entrada
+            userInput.value = '';
+        });
+
+        // Lógica do feedback
+        document.getElementById('feedback-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const feedback = document.getElementById('feedback').value;
+            const rating = document.getElementById('rating').value;
+
+            fetch('/save_feedback_txt', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ feedback: feedback, context: 'interação com o chatbot', rating: rating })
+            })
+                .then(response => response.json())
+                .then(data => alert('Feedback enviado com sucesso!'))
+                .catch(error => console.error('Erro ao enviar feedback:', error));
+        });
+
+        document.querySelectorAll('.rating-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                document.querySelectorAll('.rating-btn').forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+                const ratingValue = this.getAttribute('data-value');
+                document.getElementById('rating').value = ratingValue;
+            });
+        });
+    </script>
+</body>
+
+</html>
